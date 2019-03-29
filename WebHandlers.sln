@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHandlers", "WebHandlers\WebHandlers.csproj", "{9D9E8DCC-37E0-4439-88CF-F3E415123760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindDAL", "NorthwindDAL\NorthwindDAL.csproj", "{E4CA1BC6-EB4A-4C8B-9331-FB8615CBB87E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D9E8DCC-37E0-4439-88CF-F3E415123760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9E8DCC-37E0-4439-88CF-F3E415123760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9E8DCC-37E0-4439-88CF-F3E415123760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9E8DCC-37E0-4439-88CF-F3E415123760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4CA1BC6-EB4A-4C8B-9331-FB8615CBB87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4CA1BC6-EB4A-4C8B-9331-FB8615CBB87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4CA1BC6-EB4A-4C8B-9331-FB8615CBB87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4CA1BC6-EB4A-4C8B-9331-FB8615CBB87E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE727199-13FA-4F85-95C4-B6CE9ED74558}
+	EndGlobalSection
+EndGlobal
