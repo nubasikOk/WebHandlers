@@ -26,6 +26,7 @@ namespace WebHandlers.Tests
             constraints.Add("custID", "ALFKI");
             constraints.Add("skip", "2");
             constraints.Add("take", "1");
+            constraints.Add("dateFrom", "01-01-1990");
             InitializeWithConstraints(constraints);
         }
 
@@ -46,7 +47,6 @@ namespace WebHandlers.Tests
 
 
         [TestMethod]
-        [DataRow(-1)]
         [DataRow(1)]
         public void Test_If_TakeConstraint_GetCorrectResult(int take)
         {
@@ -58,9 +58,17 @@ namespace WebHandlers.Tests
             Assert.AreEqual(ordersCollection.Count,take);
         }
 
-
-
-
+        [TestMethod]
+        [DataRow(-1)]
+        public void Test_If_TakeConstraintIncorrect_GetCorrectResult(int take)
+        {
+            var constraints = new NameValueCollection();
+            constraints.Add("custID", "ANATR");
+            constraints.Add("take", take.ToString());
+            InitializeWithConstraints(constraints);
+            var ordersCollection = collWorker.GetFilteredCollection(querryParser).ToList();
+            Assert.AreEqual(ordersCollection.Count, 0);
+        }
 
         private void InitializeWithConstraints(NameValueCollection constraints)
         {
@@ -69,5 +77,6 @@ namespace WebHandlers.Tests
             var orders = collWorker.GetFilteredCollection(querryParser);
             streamGenerator = new ResponseStreamGenerator(orders);
         }
+
     }
 }
