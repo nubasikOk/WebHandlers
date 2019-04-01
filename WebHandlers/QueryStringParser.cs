@@ -7,42 +7,42 @@ namespace WebHandlers
     public class QueryStringParser
     {
         public string CustID { get; set; }
-        public string Take { get; set; }
-        public string Skip { get; set; }
-        public string DateTo { get; set; }
+        public int Take { get; set; }
+        public int Skip { get; set; }
+        public DateTime DateTo { get; set; }
+        public DateTime DateFrom { get; set; }
 
-        public string DateFrom { get; set; }
         public QueryStringParser(NameValueCollection queryString)
         {
             CustID = queryString["custID"];
-            Take = queryString["take"];
-            Skip = queryString["skip"];
-            DateTo = queryString["dateTo"];
-            DateFrom = queryString["dateFrom"];
-        }
-
-
-        public bool IsDateExist()
-        {
-            return !String.IsNullOrEmpty(DateTo) && !String.IsNullOrEmpty(DateFrom);
+            int take=int.MinValue, skip=int.MinValue;
+            int.TryParse(queryString["take"],out take);
+            int.TryParse(queryString["skip"], out skip);
+            Take = take;
+            Skip = skip;
+            DateTime dateTo, dateFrom;
+            DateTime.TryParse(queryString["dateTo"], out dateTo);
+            DateTime.TryParse(queryString["dateFrom"], out dateFrom);
+            DateTo = dateTo;
+            DateFrom = dateFrom;
         }
 
         public bool IsTakeExist()
         {
-            return !String.IsNullOrEmpty(Take);
+            return Take!=int.MinValue;
         }
 
         public bool IsSkipExist()
         {
-            return !String.IsNullOrEmpty(Skip);
+            return Skip != int.MinValue;
         }
         public bool IsDateToExist()
         {
-            return !String.IsNullOrEmpty(DateTo);
+            return DateTo!=DateTime.MinValue;
         }
         public bool IsDateFromExist()
         {
-            return !String.IsNullOrEmpty(DateFrom);
+            return DateFrom!= DateTime.MinValue;
         }
     }
 }

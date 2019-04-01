@@ -19,20 +19,26 @@ namespace WebHandlers
 
         public MemoryStream GenerateXML()
         {
-            using (var stream = new MemoryStream())
+            var stream = new MemoryStream();
+            try
             {
+                
                 var formatter = new XmlSerializer(typeof(List<Order>));
-
                 formatter.Serialize(stream, orders.ToList());
-
                 return stream;
             }
+            catch
+            {
+                stream.Dispose();
+                throw;
+            }
 
+            
         }
 
         public MemoryStream GenerateXLSX()
         {
-
+            
             using (var workbook = new XLWorkbook())
             {
                 var stream = new MemoryStream();
@@ -47,7 +53,7 @@ namespace WebHandlers
 
                 workbook.SaveAs(stream, new SaveOptions { });
                 return stream;
-                
+                            
             }
 
         }
@@ -62,7 +68,7 @@ namespace WebHandlers
             table.Columns.Add("Freight", typeof(decimal));
             table.Columns.Add("ShipName", typeof(string));
             table.Columns.Add("ShipCity", typeof(string));
-            table.Columns.Add("ShipPostalCode", typeof(int));
+            table.Columns.Add("ShipPostalCode", typeof(string));
             table.Columns.Add("ShipCountry", typeof(string));
 
             foreach (var order in orders)

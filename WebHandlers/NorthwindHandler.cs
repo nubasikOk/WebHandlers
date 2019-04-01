@@ -15,44 +15,40 @@ namespace WebHandlers
             var filter = new OrdersCollectionWorker();
             var queryStringParser = new QueryStringParser(request.QueryString);
             var ordersCollection = filter.GetFilteredCollection(queryStringParser);
-            var ordersStream = new MemoryStream();
-            var streamGenerator = new ResponseStreamGenerator(ordersCollection);
-            try
-            {
-                if (ordersCollection.Count() > 0)
+               if (ordersCollection.Count() > 0)
                 {
                     context.Response.Clear();
+                    var streamGenerator = new ResponseStreamGenerator(ordersCollection);
 
                     switch (request.ContentType)
                     {
                         case "text/xml":
-                            context.Response.ContentType = "text/xml";
-                            ordersStream = streamGenerator.GenerateXML();
-                            break;
+                        context.Response.ContentType = "text/xml";
+                        streamGenerator.GenerateXML().WriteTo(context.Response.OutputStream);
+                        break;
+
                         case "application/xml":
                             context.Response.ContentType = "application/xml";
-                            ordersStream = streamGenerator.GenerateXML();
-                            break;
+                            streamGenerator.GenerateXML().WriteTo(context.Response.OutputStream);
+                           break;
+
                         default:
                             context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                            ordersStream = streamGenerator.GenerateXLSX();
+                            streamGenerator.GenerateXLSX().WriteTo(context.Response.OutputStream);
                             break;
-                    }
-                    ordersStream.WriteTo(context.Response.OutputStream);
-                    context.Response.Flush();
-                    context.Response.Close();
                 }
-
+                context.Response.Flush();
+                context.Response.Close();
+            }
                 else
                 {
                     context.Response.Output.WriteLine("wait for parameters");
                 }
-            }
-            finally
-            {
-                ordersStream.Dispose();
-            }
-
+            
+            
         }
+
+
+       
     }
 }

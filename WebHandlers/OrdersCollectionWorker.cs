@@ -19,27 +19,26 @@ namespace WebHandlers
         {
 
             var dbContext = new OrderRepository(ConnectionString, ProviderName);
-            var resultCollection = dbContext.GetAllByCustomer(constraints.CustID); ;
-            if (constraints.IsDateExist())
+            var resultCollection = dbContext.GetAllByCustomer(constraints.CustID); 
+           
+            if (constraints.IsDateFromExist())
             {
-                if (constraints.IsDateFromExist())
-                {
-                    resultCollection = resultCollection.Where(o => o.OrderDate >= Convert.ToDateTime(constraints.DateFrom));
-                }
-                if (constraints.IsDateToExist())
-                {
-                    resultCollection = resultCollection.Where(o => o.OrderDate <= Convert.ToDateTime(constraints.DateTo));
-                }
+                resultCollection = resultCollection.Where(o => o.OrderDate >= constraints.DateFrom);
             }
 
+            if (constraints.IsDateToExist())
+            {
+                resultCollection = resultCollection.Where(o => o.OrderDate <= constraints.DateTo);
+            }
 
             if (constraints.IsSkipExist())
             {
-                resultCollection = resultCollection.Skip(Convert.ToInt32(constraints.Skip));
+                resultCollection = resultCollection.Skip(constraints.Skip);
             }
+
             if (constraints.IsTakeExist())
             {
-                resultCollection = resultCollection.Take(Convert.ToInt32(constraints.Take));
+                resultCollection = resultCollection.Take(constraints.Take);
             }
 
             return resultCollection;
