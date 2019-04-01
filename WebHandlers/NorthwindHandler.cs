@@ -16,7 +16,7 @@ namespace WebHandlers
             var queryStringParser = new QueryStringParser(request.QueryString);
             var ordersCollection = filter.GetFilteredCollection(queryStringParser);
                if (ordersCollection.Count() > 0)
-                {
+               {
                     context.Response.Clear();
                     var streamGenerator = new ResponseStreamGenerator(ordersCollection);
 
@@ -36,14 +36,14 @@ namespace WebHandlers
                             context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                             streamGenerator.GenerateXLSX().WriteTo(context.Response.OutputStream);
                             break;
-                }
+                    }
                 context.Response.Flush();
                 context.Response.Close();
-            }
-                else
-                {
+               }
+               else
+               {
                     context.Response.Output.WriteLine("wait for parameters");
-                }
+               }
             
             
         }

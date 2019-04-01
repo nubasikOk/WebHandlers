@@ -22,7 +22,6 @@ namespace WebHandlers
             var stream = new MemoryStream();
             try
             {
-                
                 var formatter = new XmlSerializer(typeof(List<Order>));
                 formatter.Serialize(stream, orders.ToList());
                 return stream;
