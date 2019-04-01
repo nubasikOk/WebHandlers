@@ -7,12 +7,17 @@ namespace WebHandlers
 {
     public class NorthwindHandler : IHttpHandler
     {
+        private string connectionString =
+            @"data source=EPBYGROW0110;initial catalog=Northwind;integrated security=True;MultipleActiveResultSets=True";
+
+        private string providerName = "System.Data.SqlClient";
+
         public bool IsReusable => true;
 
         public void ProcessRequest(HttpContext context)
         {
             var request = context.Request;
-            var filter = new OrdersCollectionWorker();
+            var filter = new OrdersCollectionWorker(connectionString,providerName);
             var queryStringParser = new QueryStringParser(request.QueryString);
             var ordersCollection = filter.GetFilteredCollection(queryStringParser);
                if (ordersCollection.Count() > 0)
@@ -44,11 +49,6 @@ namespace WebHandlers
                {
                     context.Response.Output.WriteLine("wait for parameters");
                }
-            
-            
         }
-
-
-       
     }
 }

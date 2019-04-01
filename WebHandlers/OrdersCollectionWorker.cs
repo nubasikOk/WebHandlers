@@ -9,16 +9,17 @@ namespace WebHandlers
 {
     public class OrdersCollectionWorker
     {
-        const string ConnectionString =
-           @"data source=EPBYGROW0110;initial catalog=Northwind;integrated security=True;MultipleActiveResultSets=True";
+        private OrderRepository dbContext;
 
-        const string ProviderName = "System.Data.SqlClient";
+        public OrdersCollectionWorker(string connectionString, string providerName)
+        {
+            dbContext = new OrderRepository(connectionString, providerName);
+        }
 
 
         public IEnumerable<Order> GetFilteredCollection(QueryStringParser constraints)
         {
-
-            var dbContext = new OrderRepository(ConnectionString, ProviderName);
+           
             var resultCollection = dbContext.GetAllByCustomer(constraints.CustID); 
            
             if (constraints.IsDateFromExist())
