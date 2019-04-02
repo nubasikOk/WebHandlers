@@ -89,11 +89,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ResponseGenerator.cs" />
     <Compile Include="NorthwindHandler.cs" />
-    <Compile Include="OrdersCollectionWorker.cs" />
+    <Compile Include="OrdersCollectionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryStringParser.cs" />
-    <Compile Include="ResponseStreamGenerator.cs" />
+    <Compile Include="StreamGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

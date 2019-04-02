@@ -6,18 +6,40 @@ using System.Linq;
 using ClosedXML.Excel;
 using System.Xml.Serialization;
 using System.Data;
+using System.Web;
 
 namespace WebHandlers
 {
-    public class ResponseStreamGenerator
+    public class StreamGenerator
     {
         private readonly IEnumerable<Order> orders;
-        public ResponseStreamGenerator(IEnumerable<Order> orders)
+        public StreamGenerator(IEnumerable<Order> orders)
         {
             this.orders = orders;
         }
 
-        public MemoryStream GenerateXML()
+        public MemoryStream GenerateStreamByContentType(string contentType, out string responseContentType)
+        {
+            
+            switch (contentType)
+            {
+                case "text/xml":
+                    responseContentType = "text/xml";
+                    return GenerateXML();
+
+                case "application/xml":
+                    responseContentType = "application/xml";
+                    return GenerateXML();
+
+                default:
+                    responseContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    return GenerateXLSX();
+
+            }
+        }
+
+
+        private MemoryStream GenerateXML()
         {
             var stream = new MemoryStream();
             try
@@ -31,11 +53,10 @@ namespace WebHandlers
                 stream.Dispose();
                 throw;
             }
-
             
         }
 
-        public MemoryStream GenerateXLSX()
+        private MemoryStream GenerateXLSX()
         {
             
             using (var workbook = new XLWorkbook())
@@ -56,6 +77,9 @@ namespace WebHandlers
             }
 
         }
+
+        
+
         private DataTable CreateOrdersDataTable()
         {
             DataTable table = new DataTable();

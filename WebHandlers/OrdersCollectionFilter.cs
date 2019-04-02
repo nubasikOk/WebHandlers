@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace WebHandlers
 {
-    public class OrdersCollectionWorker
+    public class OrdersCollectionFilter
     {
         private OrderRepository dbContext;
 
-        public OrdersCollectionWorker(string connectionString, string providerName)
+        public OrdersCollectionFilter(string connectionString, string providerName)
         {
             dbContext = new OrderRepository(connectionString, providerName);
         }
